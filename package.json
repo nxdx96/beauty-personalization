@@ -1,0 +1,36 @@
+{
+  "name": "@beauty-personalization/root",
+  "version": "1.0.0",
+  "description": "Beauty personalization tool with LLM-backed recommendations",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter @beauty-personalization/frontend dev\" \"pnpm --filter @beauty-personalization/backend dev\"",
+    "build": "pnpm --filter @beauty-personalization/shared build && pnpm --filter @beauty-personalization/frontend build && pnpm --filter @beauty-personalization/backend build",
+    "test": "pnpm --recursive test",
+    "lint": "pnpm --recursive lint",
+    "typecheck": "pnpm --recursive typecheck",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "clean": "pnpm --recursive clean",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.4.2",
+    "vitest": "^1.4.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "author": "Nada Ibrahim",
+  "license": "ISC"
+}
