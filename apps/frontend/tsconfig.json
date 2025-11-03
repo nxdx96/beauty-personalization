@@ -10,12 +10,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@beauty-personalization/shared": ["../../packages/shared/src"]
+    },
     "jsx": "react-jsx",
+    "types": ["vite/client"],
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
-  "references": [{ "path": "../../packages/shared" }]
+  "include": ["src"]
 }
