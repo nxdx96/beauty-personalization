@@ -1,0 +1,26 @@
+// Initial Prisma schema placeholder for TypeScript data model alignment.
+// Migrations will evolve this schema as the recommendation engine matures.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id           String   @id
+  name         String
+  brand        String
+  category     String
+  price        Decimal
+  rating       Decimal
+  url          String
+  skinTypes    String[]
+  skinConcerns String[]
+  hairTextures String[]
+  hairConcerns String[]
+  createdAt    DateTime @default(now())
+}

@@ -1,0 +1,70 @@
+{
+  "generatedAt": "2025-11-03T01:57:46.234Z",
+  "products": [
+    {
+      "id": "prod_foundation_001",
+      "name": "Soft Glow Foundation",
+      "brand": "Glowify",
+      "category": "foundation",
+      "price": 38,
+      "rating": 4.6,
+      "url": "https://example.com/glowify-foundation",
+      "traits": {
+        "skinTypes": ["combination"],
+        "skinConcerns": ["dryness", "uneven_tone"]
+      }
+    },
+    {
+      "id": "prod_blush_002",
+      "name": "Rosy Dream Blush",
+      "brand": "Chromatic",
+      "category": "blush",
+      "price": 24,
+      "rating": 4.4,
+      "url": "https://example.com/chromatic-blush",
+      "traits": {
+        "skinTypes": ["normal"],
+        "skinConcerns": ["dullness"]
+      }
+    },
+    {
+      "id": "prod_eyeshadow_003",
+      "name": "Velvet Nights Palette",
+      "brand": "Nuit Luxe",
+      "category": "eyeshadow",
+      "price": 48,
+      "rating": 4.8,
+      "url": "https://example.com/nuit-velvet",
+      "traits": {
+        "skinTypes": ["normal"],
+        "skinConcerns": ["sensitivity"]
+      }
+    },
+    {
+      "id": "prod_eyeliner_004",
+      "name": "Precision Glide Liner",
+      "brand": "LineCraft",
+      "category": "eyeliner",
+      "price": 19,
+      "rating": 4.1,
+      "url": "https://example.com/linecraft-liner",
+      "traits": {
+        "skinTypes": ["oily"],
+        "skinConcerns": ["oil_control"]
+      }
+    },
+    {
+      "id": "prod_hair_005",
+      "name": "HydraCurl Cream",
+      "brand": "Curl Ritual",
+      "category": "haircare",
+      "price": 32,
+      "rating": 4.7,
+      "url": "https://example.com/curl-ritual",
+      "traits": {
+        "hairTextures": ["coily"],
+        "hairConcerns": ["frizz", "breakage"]
+      }
+    }
+  ]
+}
