@@ -1,4 +1,4 @@
----
+﻿---
 description: Implementation plan for the Beauty Personalization static intake wizard
 ---
 
@@ -34,7 +34,7 @@ description: Implementation plan for the Beauty Personalization static intake wi
 ## Phase 1: Static Guided Intake Wizard
 
 ### User Flow Requirements
-1. Landing view with hero section and “Start Personalization” CTA.
+1. Landing view with hero section and â€œStart Personalizationâ€ CTA.
 2. Skin type selection view showing all available skin types (multi-select allowed).
 3. Skin concerns view with toggle buttons (multi-select).
 4. Skin improvement goals view (multi-select).
@@ -45,46 +45,46 @@ description: Implementation plan for the Beauty Personalization static intake wi
 
 ### Implementation Tasks
 - [ ] **State management**
-  - [ ] Define TypeScript interfaces for skin/hair traits (`SkinType`, `Concern`, `Improvement`, etc.).
-  - [ ] Implement a reducer or Zustand hook to manage selections, supporting multi-select and step transitions.
-  - [ ] Persist wizard progress in memory (optional: localStorage to retain between refreshes).
+  - [x] Define TypeScript interfaces for skin/hair traits (SkinType, Concern, Improvement, etc.).
+  - [x] Implement a reducer or Zustand hook to manage selections, supporting multi-select and step transitions (src/hooks/useWizard.ts).
+  - [x] Persist wizard progress in memory (localStorage hydration + reset logic).
 - [ ] **Data modeling**
-  - [x] Create baseline trait definitions for skin and hair texture (`apps/frontend/src/data/skin.ts`, `apps/frontend/src/data/hair.ts`).
-  - [ ] Expand data catalog with skin concerns, improvement goals, hair concerns, and hair improvement goals (new files under `src/data/concerns.ts`, etc.).
+  - [x] Create baseline trait definitions for skin and hair texture (pps/frontend/src/data/skin.ts, pps/frontend/src/data/hair.ts).
+  - [x] Expand data catalog with skin concerns, improvement goals, hair concerns, and hair improvement goals (inline for now to minimize file churn).
 - [ ] **UI components**
-  - [ ] `StartScreen` component with hero copy, CTA, and subtle animation prompting engagement.
-  - [ ] Reusable `TraitButton`/`ToggleChip` component with active/inactive styling and accessibility attributes (`aria-pressed`, keyboard controls).
-  - [ ] `StepHeader` showing current step, total steps, and optional progress indicator.
-  - [ ] `SelectionGrid` layouts for presenting traits responsively (stack on mobile).
-  - [ ] `SummaryPanel` to review choices, provide copy (“You told us your skin is…”), and offer “Start Over” CTA.
+  - [x] StartScreen component with hero copy, CTA, and subtle animation prompting engagement.
+  - [x] Reusable TraitButton/ToggleChip component with active/inactive styling and accessibility attributes (ria-pressed, keyboard controls).
+  - [x] StepHeader showing current step, total steps, and optional progress indicator.
+  - [x] SelectionGrid layouts for presenting traits responsively (stack on mobile).
+  - [x] SummaryPanel to review choices, provide copy ("You told us your skin is..."), and offer "Start Over" CTA.
 - [ ] **Navigation logic**
-  - [ ] Implement a step controller that advances only when at least one choice is made (configurable for multi-select).
-  - [ ] Provide Back and Next buttons (except on first/last steps).
+  - [x] Implement a step controller that advances only when at least one choice is made (configurable for multi-select).
+  - [x] Provide Back and Next buttons (except on first/last steps).
   - [ ] Animate transitions between steps (CSS transitions or Framer Motion optional).
 - [ ] **Styling & UX**
-  - [ ] Create cohesive visual language inspired by modern beauty apps (color palette, typography, spacing).
+  - [x] Create cohesive visual language inspired by modern beauty apps (color palette, typography, spacing).
   - [ ] Ensure components meet WCAG AA for text/buttons.
-  - [ ] Include responsive breakpoints (mobile-first design).
+  - [x] Include responsive breakpoints (mobile-first design).
 - [ ] **Results preview (optional)**
-  - [ ] Create placeholder recommendation panel with static copy referencing selections (no API calls yet).
+  - [x] Create placeholder recommendation panel with static copy referencing selections (summary grid for now).
 
 ### Testing & QA
-- [ ] Unit tests for reducer/state hook verifying toggle logic and reset behavior.
+- [x] Unit tests for reducer/state hook verifying toggle logic and reset behavior.
 - [ ] Component tests for:
   - [ ] Step rendering and button toggling.
   - [ ] Step progression when selection criteria met.
   - [ ] Summary view reflecting chosen traits.
 - [ ] Accessibility smoke test: ensure keyboard navigation works across buttons and steps (can be manual for Phase 1).
 
-### Phase 1 Execution Notes (Nov 7, 2025)
-- Milestone: data catalog now includes skin concerns/goals and hair concerns/goals inside `src/data/skin.ts` and `src/data/hair.ts`, plus shared step metadata in `src/data/steps.ts`.
-- Implemented `useWizard` reducer (multi-select logic, guarded navigation, summary derivation) and wired it through new components (`StartScreen`, `TraitStep`, `WizardNav`, `SummaryPanel`).
-- UI shell now renders the wizard flow end-to-end within `App.tsx`, with responsive trait grids and a summary page.
-- Added Vitest smoke coverage (`welcome.test.tsx`) to assert the start CTA and first-step rendering.
-- Remaining tasks for Phase 1:
-  1. Add persistence (memory or localStorage) so refreshes keep selections.
-  2. Layer accessibility and animation polish (focus outlines, keyboard-only guidance, micro-interactions).
-  3. Expand automated tests to cover reducer edge cases and summary rendering.
+### Phase 1 Execution Notes (Nov 8, 2025)
+- Data catalog now covers skin & hair types + concerns/goals, with shared metadata in src/data/steps.ts.
+- useWizard handles multi-select state, guarded navigation, summary derivation, and persistence via localStorage so refreshes resume progress.
+- UI components (StartScreen, TraitStep, WizardNav, SummaryPanel, etc.) render the entire intake flow inside App.tsx, styled responsively.
+- Added Vitest coverage for reducer state (useWizard.test.ts) plus smoke tests ensuring the wizard starts correctly.
+- Remaining near-term tasks:
+  1. Add WCAG-level focus states/keyboard guidance and optional micro-animations.
+  2. Expand component tests (step progression, summary rendering) and reducer edge cases.
+  3. Explore a manual "Save & exit" affordance once backend persistence lands.
 
 ## Future Phases (Preview)
 - **Phase 2**: Introduce persistent storage (Prisma + Postgres) and enriched recommendation rules.
@@ -109,3 +109,4 @@ description: Implementation plan for the Beauty Personalization static intake wi
 - [ ] Buttons reflect selected/unselected states with clear visual feedback and remain keyboard accessible.
 - [ ] Summary accurately lists all chosen skin/hair traits and offers a restart option.
 - [ ] No external network calls or database writes occur during the flow (verified via dev tools).
+

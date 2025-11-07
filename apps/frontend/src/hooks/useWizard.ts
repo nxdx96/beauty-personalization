@@ -1,4 +1,4 @@
-import { useMemo, useReducer } from "react"
+import { useEffect, useMemo, useReducer } from "react"
 
 import { WIZARD_STEPS, type StepId, type WizardStep } from "../data/steps"
 
@@ -17,10 +17,15 @@ type WizardAction =
   | { type: "PREV" }
   | { type: "RESET" }
 
-const INITIAL_SELECTIONS = WIZARD_STEPS.reduce((acc, step) => {
-  acc[step.id] = []
-  return acc
-}, {} as WizardSelections)
+export const WIZARD_STORAGE_KEY = "beauty-intake:v1"
+
+const makeEmptySelections = () =>
+  WIZARD_STEPS.reduce((acc, step) => {
+    acc[step.id] = []
+    return acc
+  }, {} as WizardSelections)
+
+const INITIAL_SELECTIONS = makeEmptySelections()
 
 const INITIAL_STATE: WizardState = {
   started: false,
@@ -64,8 +69,63 @@ function wizardReducer(state: WizardState, action: WizardAction): WizardState {
   }
 }
 
+const isBrowser = typeof window !== "undefined"
+
+function normalizeSelections(selections: Partial<Record<string, string[]>> | undefined) {
+  const base = makeEmptySelections()
+  if (!selections) return base
+  WIZARD_STEPS.forEach((step) => {
+    const incoming = Array.isArray(selections[step.id]) ? selections[step.id]! : []
+    base[step.id] = incoming.filter((value) => step.data.some((option) => option.id === value))
+  })
+  return base
+}
+
+function loadPersistedState(): WizardState | null {
+  if (!isBrowser) return null
+  try {
+    const raw = window.localStorage.getItem(WIZARD_STORAGE_KEY)
+    if (!raw) return null
+    const parsed = JSON.parse(raw) as Partial<WizardState>
+    if (!parsed || typeof parsed !== "object") return null
+    const started = Boolean(parsed.started)
+    const activeIndex =
+      typeof parsed.activeIndex === "number"
+        ? Math.min(Math.max(parsed.activeIndex, 0), WIZARD_STEPS.length)
+        : 0
+    return {
+      started,
+      activeIndex: started ? activeIndex : 0,
+      selections: normalizeSelections(parsed.selections),
+    }
+  } catch {
+    return null
+  }
+}
+
+function persistState(state: WizardState) {
+  if (!isBrowser) return
+  try {
+    if (!state.started) {
+      window.localStorage.removeItem(WIZARD_STORAGE_KEY)
+      return
+    }
+    window.localStorage.setItem(WIZARD_STORAGE_KEY, JSON.stringify(state))
+  } catch {
+    // ignore storage errors
+  }
+}
+
 export function useWizard() {
-  const [state, dispatch] = useReducer(wizardReducer, INITIAL_STATE)
+  const [state, dispatch] = useReducer(
+    wizardReducer,
+    INITIAL_STATE,
+    () => loadPersistedState() ?? INITIAL_STATE,
+  )
+
+  useEffect(() => {
+    persistState(state)
+  }, [state])
 
   const currentStep: WizardStep | null =
     state.started && state.activeIndex < WIZARD_STEPS.length
