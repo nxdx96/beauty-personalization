@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Brand {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("brands")
+}
+
+model Product {
+  id       String          @id @default(cuid())
+  name     String
+  brand    Brand           @relation(fields: [brandId], references: [id])
+  brandId  String
+  category ProductCategory
+  price    Float
+  rating   Float
+  url      String
+
+  // Trait associations
+  skinTypes     ProductTrait[] @relation("ProductSkinTypes")
+  skinConcerns  ProductTrait[] @relation("ProductSkinConcerns")
+  hairTextures  ProductTrait[] @relation("ProductHairTextures")
+  hairConcerns  ProductTrait[] @relation("ProductHairConcerns")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("products")
+}
+
+model ProductTrait {
+  id    String    @id @default(cuid())
+  key   TraitKey
+  value String
+
+  // Product associations
+  skinTypeProducts    Product[] @relation("ProductSkinTypes")
+  skinConcernProducts Product[] @relation("ProductSkinConcerns")
+  hairTextureProducts Product[] @relation("ProductHairTextures")
+  hairConcernProducts Product[] @relation("ProductHairConcerns")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([key, value])
+  @@map("product_traits")
+}
+
+model IngestionRun {
+  id            String   @id @default(cuid())
+  status        String   // 'running', 'completed', 'failed'
+  recordsTotal  Int?
+  recordsInserted Int?
+  recordsUpdated  Int?
+  errorCount    Int?
+  errorDetails  Json?
+  startedAt     DateTime @default(now())
+  completedAt   DateTime?
+
+  @@map("ingestion_runs")
+}
+
+enum ProductCategory {
+  foundation
+  blush
+  eyeshadow
+  eyeliner
+  haircare
+}
+
+enum TraitKey {
+  skinType
+  skinConcern
+  hairTexture
+  hairConcern
+}
