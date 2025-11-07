@@ -1,18 +1,12 @@
-import './styles/global.css'
+import "./styles/global.css"
+
+import { Wizard } from "./components/Wizard"
 
 export function App() {
   return (
     <div className="app-shell">
       <main className="layout">
-        <section>
-          <h1>Beauty Personalization</h1>
-          <p>
-            Phase 1 wizard coming soon. Click the start button below to begin gathering user traits.
-          </p>
-        </section>
-        <section>
-          <button type="button">Start Personalization</button>
-        </section>
+        <Wizard />
       </main>
     </div>
   )

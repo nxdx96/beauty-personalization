@@ -49,7 +49,8 @@ description: Implementation plan for the Beauty Personalization static intake wi
   - [ ] Implement a reducer or Zustand hook to manage selections, supporting multi-select and step transitions.
   - [ ] Persist wizard progress in memory (optional: localStorage to retain between refreshes).
 - [ ] **Data modeling**
-  - [ ] Create static JSON arrays in `src/data/skin.ts` and `src/data/hair.ts` enumerating types, concerns, improvements with human-readable labels, IDs, and optional descriptions.
+  - [x] Create baseline trait definitions for skin and hair texture (`apps/frontend/src/data/skin.ts`, `apps/frontend/src/data/hair.ts`).
+  - [ ] Expand data catalog with skin concerns, improvement goals, hair concerns, and hair improvement goals (new files under `src/data/concerns.ts`, etc.).
 - [ ] **UI components**
   - [ ] `StartScreen` component with hero copy, CTA, and subtle animation prompting engagement.
   - [ ] Reusable `TraitButton`/`ToggleChip` component with active/inactive styling and accessibility attributes (`aria-pressed`, keyboard controls).
@@ -74,6 +75,16 @@ description: Implementation plan for the Beauty Personalization static intake wi
   - [ ] Step progression when selection criteria met.
   - [ ] Summary view reflecting chosen traits.
 - [ ] Accessibility smoke test: ensure keyboard navigation works across buttons and steps (can be manual for Phase 1).
+
+### Phase 1 Execution Notes (Nov 7, 2025)
+- Milestone: data catalog now includes skin concerns/goals and hair concerns/goals inside `src/data/skin.ts` and `src/data/hair.ts`, plus shared step metadata in `src/data/steps.ts`.
+- Implemented `useWizard` reducer (multi-select logic, guarded navigation, summary derivation) and wired it through new components (`StartScreen`, `TraitStep`, `WizardNav`, `SummaryPanel`).
+- UI shell now renders the wizard flow end-to-end within `App.tsx`, with responsive trait grids and a summary page.
+- Added Vitest smoke coverage (`welcome.test.tsx`) to assert the start CTA and first-step rendering.
+- Remaining tasks for Phase 1:
+  1. Add persistence (memory or localStorage) so refreshes keep selections.
+  2. Layer accessibility and animation polish (focus outlines, keyboard-only guidance, micro-interactions).
+  3. Expand automated tests to cover reducer edge cases and summary rendering.
 
 ## Future Phases (Preview)
 - **Phase 2**: Introduce persistent storage (Prisma + Postgres) and enriched recommendation rules.
