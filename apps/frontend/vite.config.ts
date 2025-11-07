@@ -1,13 +1,15 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+/// <reference types="vitest/config" />
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
+import type { UserConfig as VitestUserConfig } from "vitest/config"
 
-export default defineConfig({
+const config: VitestUserConfig = {
   plugins: [react()],
-  server: {
-    port: 3000,
-    proxy: {
-      '/intake': 'http://localhost:3001',
-      '/products': 'http://localhost:3001',
-    },
+  test: {
+    environment: "jsdom",
+    setupFiles: "./src/setupTests.ts",
+    include: ["src/**/__tests__/**/*.{test,spec}.{ts,tsx}"],
   },
-})
+}
+
+export default defineConfig(config)

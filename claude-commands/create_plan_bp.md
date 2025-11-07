@@ -136,10 +136,33 @@ Deliver a working TypeScript/React intake experience backed by a minimal Node AP
 
 ### Phase 1 Next Steps
 
-- Exercise the new flow end-to-end: `pnpm install`, `pnpm dev`, and `pnpm --filter @beauty-personalization/backend seed:legacy` to validate the wizard against the seeded catalog.
-- Expand automated coverage: add backend route tests and UI component tests once testing utilities (e.g., Vitest + React Testing Library) are in place.
-- Flesh out persistence: replace the JSON cache with Prisma migrations and database wiring; document rollout in Phase 2.
-- Prepare UX polish: capture design follow-ups (responsive modal tweaks, accessibility QA) for the upcoming frontend milestone.
+- [ ] Exercise the new flow end-to-end: `pnpm dev` plus `pnpm --filter @beauty-personalization/backend seed:legacy` to validate the wizard against the seeded catalog.
+- [ ] Expand automated coverage: add backend route tests and UI component tests once testing utilities (e.g., Vitest + React Testing Library) are in place.
+- [ ] Flesh out persistence: replace the JSON cache with Prisma migrations and database wiring; document rollout in Phase 2.
+- [ ] Prepare UX polish: capture design follow-ups (responsive modal tweaks, accessibility QA) for the upcoming frontend milestone.
+
+### Phase 2 Goals
+
+Stand up the backend foundation: persistent catalog storage, authenticated API surface, and observability hooks that support LLM-driven recommendations and scheduled ingestion.
+
+### Phase 2 Backend Setup Checklist
+
+- [ ] **Prisma schema & migrations**: finalize product/brand/trait tables, generate migrations, and run against local Postgres (Docker or managed dev DB).
+- [ ] **Repository layer**: implement Prisma clients for product search, trait lookups, and ingestion bookkeeping utilities.
+- [ ] **API expansion**:
+  - [ ] Add `/ingest/status` (read-only) and `/ingest/run` (protected) endpoints to monitor and trigger refresh jobs.
+  - [ ] Extend `/products/recommendations` with pagination, category filters, and deterministic fallbacks surfaced in the response payload.
+  - [ ] Introduce `/health/ready` to expose DB connectivity for deployment probes.
+- [ ] **Caching & rate limiting**: integrate Redis (or injectable cache interface) to memoize recommendation results with configurable TTLs.
+- [ ] **Auth & configuration**: provide API key middleware, centralize secrets via `.env`/`dotenv`, and document rotation strategy.
+- [ ] **Monitoring hooks**: add pino transports and basic OpenTelemetry traces for recommendation and ingestion flows.
+- [ ] **Testing**:
+  - [ ] Unit tests for repository/filtering logic using Prisma test client + seeded fixtures.
+  - [ ] Integration tests covering the expanded Express routes against a disposable Postgres instance.
+- [ ] **Data ingestion pipeline**:
+  - [ ] Promote the legacy transformer into a scheduled job (GitHub Actions workflow or platform cron) with retry/on-failure alerts.
+  - [ ] Persist run metadata (records processed, error counts, timestamps) for observability dashboards.
+- [ ] **Documentation**: update `README.md` with backend setup steps, migration commands, seed scripts, and troubleshooting guidance.
 
 ### Files to Modify or Create (Phase 1)
 

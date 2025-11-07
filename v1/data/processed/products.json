@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-03T01:57:46.234Z",
+  "generatedAt": "2025-11-03T02:41:38.674Z",
   "products": [
     {
       "id": "prod_foundation_001",
@@ -10,8 +10,13 @@
       "rating": 4.6,
       "url": "https://example.com/glowify-foundation",
       "traits": {
-        "skinTypes": ["combination"],
-        "skinConcerns": ["dryness", "uneven_tone"]
+        "skinTypes": [
+          "combination"
+        ],
+        "skinConcerns": [
+          "dryness",
+          "uneven_tone"
+        ]
       }
     },
     {
@@ -23,8 +28,12 @@
       "rating": 4.4,
       "url": "https://example.com/chromatic-blush",
       "traits": {
-        "skinTypes": ["normal"],
-        "skinConcerns": ["dullness"]
+        "skinTypes": [
+          "normal"
+        ],
+        "skinConcerns": [
+          "dullness"
+        ]
       }
     },
     {
@@ -36,8 +45,12 @@
       "rating": 4.8,
       "url": "https://example.com/nuit-velvet",
       "traits": {
-        "skinTypes": ["normal"],
-        "skinConcerns": ["sensitivity"]
+        "skinTypes": [
+          "normal"
+        ],
+        "skinConcerns": [
+          "sensitivity"
+        ]
       }
     },
     {
@@ -49,8 +62,12 @@
       "rating": 4.1,
       "url": "https://example.com/linecraft-liner",
       "traits": {
-        "skinTypes": ["oily"],
-        "skinConcerns": ["oil_control"]
+        "skinTypes": [
+          "oily"
+        ],
+        "skinConcerns": [
+          "oil_control"
+        ]
       }
     },
     {
@@ -62,8 +79,13 @@
       "rating": 4.7,
       "url": "https://example.com/curl-ritual",
       "traits": {
-        "hairTextures": ["coily"],
-        "hairConcerns": ["frizz", "breakage"]
+        "hairTextures": [
+          "coily"
+        ],
+        "hairConcerns": [
+          "frizz",
+          "breakage"
+        ]
       }
     }
   ]

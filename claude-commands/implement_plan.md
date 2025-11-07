@@ -4,13 +4,13 @@ description: Implement technical plans from thoughts/shared/plans with verificat
 
 # Implement Plan
 
-You are tasked with implementing an approved technical plan from `thoughts/shared/plans/`. These plans contain phases with specific changes and success criteria.
+You are tasked with implementing an approved technical plan from `claude-commands/create_beauty_plan.md`. These plans contain phases with specific changes and success criteria.
 
 ## Getting Started
 
-When given a plan path (e.g., `claude-commands/create_plan_bp.md`):
+When given a plan path (e.g., `claude-commands/create_beauty_plan.md`):
 
-- Read the plan completely (`create_plan_bp.md`) and check for any existing checkmarks (- [x])
+- Read the plan completely (`create_beauty_plan.md`) and check for any existing checkmarks (- [x])
 - Read the original ticket and all files mentioned in the plan
 - **Read files fully** - never use limit/offset parameters, you need complete context
 - Think deeply about how the pieces fit together
