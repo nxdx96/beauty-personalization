@@ -16,3 +16,5 @@ Thumbs.db
 
 # pnpm state
 pnpm-debug.log
+# Archived monorepo snapshot
+v1/
